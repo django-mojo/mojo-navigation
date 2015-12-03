@@ -1,0 +1,18 @@
+language: python
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+env:
+  - DJANGO=1.7
+  - DJANGO=1.8
+install:
+  - pip install -q Django==$DJANGO --use-mirrors
+  - pip install flake8 --use-mirrors
+  - pip install coveralls
+  - pip install -q -e . --use-mirrors
+before_script:
+  - "flake8 mojo.navigation"
+script:
+  - coverage run --source mojo.navigation mojo/navigation/tests/runtests.py
+after_success: coveralls
