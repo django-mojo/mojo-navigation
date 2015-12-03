@@ -56,6 +56,7 @@ try:
     # Django < 1.7
     from django.core.management import setup_environ
     setup_environ(settings)
+    failures = test_runner.run_tests(['mojo.navigation'])
 except:
     # Django >= 1.7
     import django
