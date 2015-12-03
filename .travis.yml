@@ -18,5 +18,5 @@ install:
 before_script:
   - "flake8 mojo"
 script:
-  - coverage run mojo/navigation/tests/manage.py test mojo.navigation
+  - coverage run --source mojo.navigation mojo/navigation/tests/manage.py test mojo.navigation.tests
 after_success: coveralls
