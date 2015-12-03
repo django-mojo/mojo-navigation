@@ -12,7 +12,7 @@ install:
   - pip install coveralls
   - pip install -q -e . --use-mirrors
 before_script:
-  - "flake8 mojo.navigation"
+  - "flake8 mojo"
 script:
   - coverage run --source mojo.navigation mojo/navigation/tests/runtests.py
 after_success: coveralls
