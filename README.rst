@@ -87,14 +87,13 @@ In case you are using South, you can alternatively do:
 
     python manage.py migrate mojo.navigation
 
-********
 Managers
-********
+========
 
 There are 2 main managers to help sortting and filtering the menu items.
 
 Tree
-====
+----
 
 You can get all items of a specific tree by passing its slug in the *for_tree* manager, for exemple:
 
@@ -103,13 +102,35 @@ You can get all items of a specific tree by passing its slug in the *for_tree* m
     tree_items = Item.objects.for_slug('slug_exemple')
 
 User
-====
+----
 
 As we are using permissions for items. You can filter items for a specific user to retrieve all the items he has access to by passing its object in the *for_user* manager, for exemple:
 
 .. code-block::  python
 
     tree_items = Item.objects.for_user(request.user)
+
+
+Utils
+=====
+
+level
+-----
+
+You can limit the number of tree levels of trees. For exemple, some menus can be one or two levels only. In such case its useless to allow the the user to add more. 
+
+In order to limit the number of levels you need to create a custom admin class inheriting from *mojo.navigation.admin.ItemAdmin* and add a *level_limit* attribute with the desired value. 
+
+For exemple, this will limit the tree to two levels:
+
+.. code-block::  python
+
+    from mojo.navigation.admin import ItemAdmin
+
+    class CustomItemAdmin(ItemAdmin):
+        level_limit = 1
+
+
 
 ************
 Contribution
