@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.core.validators import URLValidator
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 
@@ -16,7 +15,6 @@ from mptt.models import MPTTModel, TreeForeignKey
 from .managers import ItemManager
 
 
-@python_2_unicode_compatible
 class ItemBase(MPTTModel):
     """
     Model managing the items without tree inheritance and providing the basic fields and behaviours.
@@ -66,8 +64,11 @@ class ItemBase(MPTTModel):
         verbose_name = _(u"navigation item")
         verbose_name_plural = _(u"navigation items")
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
 
     def url_is_valid(self):
         """

@@ -1,10 +1,11 @@
 import os
 import sys
 
-
 from django.conf import settings
 
+
 DIRNAME = os.path.dirname(__file__)
+
 settings.configure(
     DEBUG=True,
     DATABASE_ENGINE='sqlite3',
@@ -37,11 +38,11 @@ settings.configure(
         'django.contrib.sessions',
         'django.contrib.admin',
 
+        'mojo',
         'mojo.navigation',
         'mojo.navigation.tests'
     )
 )
-
 
 try:
     # Django < 1.8
@@ -56,12 +57,12 @@ try:
     # Django < 1.7
     from django.core.management import setup_environ
     setup_environ(settings)
-    failures = test_runner.run_tests(['mojo.navigation'])
+    failures = test_runner.run_tests(['mojo'])
 except:
     # Django >= 1.7
     import django
     django.setup()
 
-failures = test_runner.run_tests(['mojo.navigation'])
+failures = test_runner.run_tests(['mojo'])
 if failures:
     sys.exit(failures)

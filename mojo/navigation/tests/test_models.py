@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+
 from django.test import TestCase
 
-from mojo.navigation.tests.models import Item
+from mojo.navigation.tests.models import TestItem
 
 
 class ItemTest(TestCase):
@@ -9,7 +11,7 @@ class ItemTest(TestCase):
     """
 
     def setUp(self):
-        self.item = Item(name=u"Test")
+        self.item = TestItem(name=u"Test")
 
     def test_unicode_str_retun_object_name(self):
         """
@@ -85,7 +87,7 @@ class ItemTest(TestCase):
         """
         self.item.save()
         self.assertNotEqual('', self.item.slug)
-        new_item = Item(name=self.item.name)
+        new_item = TestItem(name=self.item.name)
         new_item.save()
         self.assertNotEqual(self.item.slug, new_item.slug)
         self.assertIn('-', new_item.slug)

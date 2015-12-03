@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth.models import User, Group, Permission
 from django.test import TestCase
 
-from mojo.navigation.tests.models import Item
+from mojo.navigation.tests.models import TestItem
 
 
 class ItemManagerTest(TestCase):
@@ -20,18 +22,18 @@ class ItemManagerTest(TestCase):
         self.permission = Permission.objects.get(pk=1)
 
         # create a tree item
-        self.item = Item(parent=None, name="Test item")
+        self.item = TestItem(parent=None, name=u"Test item")
         self.item.save()
 
     def test_for_slug_returns_only_tree_descendants(self):
         """
         Testing if the for_slug method, only returns the item descendants.
         """
-        item_child = Item(parent=self.item, name="Test item child")
+        item_child = TestItem(parent=self.item, name=u"Test item child")
         item_child.save()
-        item_child_child = Item(parent=item_child, name="Test item child child")
+        item_child_child = TestItem(parent=item_child, name=u"Test item child child")
         item_child_child.save()
-        items = Item.objects.for_slug(item_child.slug)
+        items = TestItem.objects.for_slug(item_child.slug)
         self.assertNotIn(self.item, items)
         self.assertIn(item_child, items)
         self.assertIn(item_child_child, items)
@@ -44,7 +46,7 @@ class ItemManagerTest(TestCase):
         self.item.access_permissions.add(self.permission)
         user.user_permissions.clear()
         user.is_superuser = True
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertIn(self.item, items)
         self.item.access_permissions.clear()
 
@@ -57,10 +59,10 @@ class ItemManagerTest(TestCase):
         user.is_active = False
         self.item.access_loggedin = True
         self.item.save()
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertNotIn(self.item, items)
         user.is_active = True
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertIn(self.item, items)
         self.item.access_loggedin = False
         self.item.save()
@@ -72,10 +74,10 @@ class ItemManagerTest(TestCase):
         user = self.user
         self.item.access_permissions.add(self.permission)
         user.user_permissions.add(self.permission)
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertIn(self.item, items)
         user.user_permissions.clear()
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertNotIn(self.item, items)
         self.item.access_permissions.clear()
 
@@ -86,10 +88,10 @@ class ItemManagerTest(TestCase):
         user = self.user
         self.item.access_group.add(self.group)
         user.groups.clear()
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertNotIn(self.item, items)
         user.groups.add(self.group)
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertIn(self.item, items)
         self.item.access_group.clear()
 
@@ -101,9 +103,9 @@ class ItemManagerTest(TestCase):
         group = self.group
         self.item.access_permissions.add(self.permission)
         user.groups.add(group)
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertNotIn(self.item, items)
         group.permissions.add(self.permission)
-        items = Item.objects.for_user(user)
+        items = TestItem.objects.for_user(user)
         self.assertIn(self.item, items)
         self.item.access_permissions.clear()
