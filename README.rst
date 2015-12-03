@@ -3,7 +3,7 @@
   :alt: PyPI version
   :height: 18px
 
-.. image::  https://travis-ci.org/omji/mojo-navigation.png?branch=master
+.. image::  https://travis-ci.org/django-mojo/mojo-navigation.png?branch=master
   :target: https://travis-ci.org/omji/mojo-navigation
   :alt: build-status
   :height: 18px
