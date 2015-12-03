@@ -3,13 +3,13 @@
   :alt: PyPI version
   :height: 18px
 
-.. image::  https://travis-ci.org/django-mojo/mojo-navigation.png?branch=master
-  :target: https://travis-ci.org/omji/mojo-navigation
+.. image::  https://travis-ci.org/django-mojo/mojo-navigation.svg?branch=master
+  :target: https://travis-ci.org/django-mojo/mojo-navigation
   :alt: build-status
   :height: 18px
 
-.. image:: https://coveralls.io/repos/omji/mojo-navigation/badge.png?branch=master
-  :target: https://coveralls.io/r/omji/mojo-navigation
+.. image:: https://coveralls.io/repos/django-mojo/mojo-navigation/badge.svg?branch=master&service=github'
+  :target: https://coveralls.io/r/django-mojo/mojo-navigation
   :alt: coverage
   :height: 18px
 
