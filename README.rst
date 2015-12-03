@@ -1,4 +1,4 @@
-.. image:: https://badge.fury.io/py/mojo-navigation.png
+.. image:: https://badge.fury.io/py/mojo-navigation.svg
   :target: http://badge.fury.io/py/mojo-navigation
   :alt: PyPI version
   :height: 18px
