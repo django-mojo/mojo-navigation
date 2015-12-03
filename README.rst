@@ -18,13 +18,17 @@
 MOJO NAVIGATION
 ###############
 
-This Django app manages navigations with simple features. For now it is mostly used for mojo-tootbar and mojo-dashboard which require common models and functionnalities provided by this app.
+This Django app manages navigations trees with simple features. It is highly inspired by django-treenav and django-sitetree. It offers a lighter version to allow easy customisation.
+
+The trees structure is using mptt. Each item offer various options to generate the url, restrict access given user status and permissions, classes and behaviours.
+
+Changelist view:
 
 .. image:: https://box.everhelper.me/attachment/342272/1VqyhRX5tQTX7AFhZZpY6HdPzrPh3QmW/341506-7MaquApmPbU02vSZ/screen.png
    :height: 400px
    :width: 800 px
 
-Grappelli:
+Add view:
 
 .. image:: https://box.everhelper.me/attachment/342274/1VqyhRX5tQTX7AFhZZpY6HdPzrPh3QmW/341506-JJ7ps4S6TNfi1DI6/screen.png
    :height: 400px
