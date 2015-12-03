@@ -22,6 +22,7 @@ This Django app manages navigations trees with simple features. It is highly ins
 
 The trees structure is using mptt. Each item offer various options to generate the url, restrict access given user status and permissions, classes and behaviours.
 
+
 Changelist view:
 
 .. image:: https://box.everhelper.me/attachment/342272/1VqyhRX5tQTX7AFhZZpY6HdPzrPh3QmW/341506-7MaquApmPbU02vSZ/screen.png
