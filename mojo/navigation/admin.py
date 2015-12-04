@@ -1,11 +1,7 @@
-from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-if 'django_mptt_admin' in settings.INSTALLED_APPS:  # pragma: no cover
-    from django_mptt_admin.admin import DjangoMpttAdmin as MPTTModelAdmin
-else:
-    from mptt.admin import MPTTModelAdmin
+from django_mptt_admin.admin import DjangoMpttAdmin as MPTTModelAdmin
 
 from .models import Item
 
@@ -45,5 +41,14 @@ class ItemAdmin(MPTTModelAdmin):
         if db_field.name == "parent" and self.level_limit is not None:
             kwargs["queryset"] = self.model.objects.filter(level__lt=self.level_limit)
         return super(ItemAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def do_move(self, instance, position, target_instance):
+        """
+        Overwritting parent do_move method to disallow users to exceed the self.level_limit value when drag and
+        dropping items.
+        """
+        if position == 'inside' and self.level_limit >= 0 and target_instance.level >= self.level_limit:
+            raise Exception(_(u'The maximum level for this model is %d' % self.level_limit))
+        super(ItemAdmin, self).do_move(instance, position, target_instance)
 
 admin.site.register(Item, ItemAdmin)

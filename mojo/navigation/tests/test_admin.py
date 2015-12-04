@@ -41,21 +41,45 @@ class ItemAdminTest(TestCase):
         # create a site instance
         self.site = AdminSite()
 
-    def test_level_limit_filters_parent_queryset_levels(self):
+    def test_level_limit_not_set_all_levels_returned(self):
         """
-        Testing if level_limit is set the parent field queryset should filter and remove levels underneath.
+        Testing if level_limit is not set, all levels should be returned in the parent select.
         """
-        # if no level_limit, all levels are returned.
         item_admin = ItemAdmin(TestItem, self.site)
         form = item_admin.get_form(request)
         queryset = form.base_fields['parent']._queryset
         self.assertEqual(len(queryset), 2)
         self.assertIn(self.menu_parent, queryset)
         self.assertIn(self.menu_child, queryset)
-        # if level_limit=1, the root level items should be removed.
+
+    def test_level_limit_set_only_filtered_levels_returned(self):
+        """
+        Testing if level_limit is set the parent field queryset should filter and remove levels underneath.
+        """
         item_admin = ItemAdmin(TestItem, self.site)
         item_admin.level_limit = 1
         form = item_admin.get_form(request)
         queryset = form.base_fields['parent']._queryset
         self.assertEqual(len(form.base_fields['parent']._queryset), 1)
         self.assertNotIn(self.menu_child, queryset)
+
+    def test_level_limit_not_set_do_move_any_level_allowed(self):
+        """
+        Testing if when the level_limit attribute is not set the do_move method should allow anything.
+        """
+        item_admin = ItemAdmin(TestItem, self.site)
+        instance = item_admin.get_object(request, self.menu_child.id)
+        parent_instance = item_admin.get_object(request, self.menu_parent.id)
+        item_admin.do_move(instance, 'inside', parent_instance)
+        self.assertEqual(instance.parent, parent_instance)
+
+    def test_level_limit_set_do_move_filters_level_allowed(self):
+        """
+        Testing if when the level_limit attribute is set the move_to method should not allow exceeding it.
+        """
+        item_admin = ItemAdmin(TestItem, self.site)
+        item_admin.level_limit = 0
+        instance = item_admin.get_object(request, self.menu_child.id)
+        parent_instance = item_admin.get_object(request, self.menu_parent.id)
+        with self.assertRaises(Exception):
+            item_admin.do_move(instance, 'inside', parent_instance)

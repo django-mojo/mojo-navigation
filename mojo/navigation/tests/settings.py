@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.admin',
 
+    'django_mptt_admin',
+
     'mojo',
     'mojo.navigation',
     'mojo.navigation.tests'
