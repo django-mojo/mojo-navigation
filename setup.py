@@ -15,7 +15,7 @@ else:
 
 setup(
     name='mojo-navigation',
-    version='0.0.1',
+    version='0.0.2',
     author='Guillaume Pousseo',
     author_email='guillaumepousseo@revsquare.com',
     description='Django app managing simple navigation.',
