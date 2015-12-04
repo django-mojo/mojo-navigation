@@ -47,7 +47,7 @@ class ItemAdmin(MPTTModelAdmin):
         Overwritting parent do_move method to disallow users to exceed the self.level_limit value when drag and
         dropping items.
         """
-        if position == 'inside' and self.level_limit >= 0 and target_instance.level >= self.level_limit:
+        if position == 'inside' and self.level_limit is not None and target_instance.level >= self.level_limit:
             raise Exception(_(u'The maximum level for this model is %d' % self.level_limit))
         super(ItemAdmin, self).do_move(instance, position, target_instance)
 
