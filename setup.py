@@ -40,6 +40,6 @@ setup(
         'Programming Language :: Python :: 3.5'
     ],
     install_requires=[
-        'django_mptt==0.7.4'
+        'django_mptt_admin==0.3.1'
     ],
 )
