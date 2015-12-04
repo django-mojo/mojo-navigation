@@ -15,7 +15,7 @@ else:
 
 setup(
     name='mojo-navigation',
-    version='0.0.2',
+    version='0.0.3',
     author='Guillaume Pousseo',
     author_email='guillaumepousseo@revsquare.com',
     description='Django app managing simple navigation.',
@@ -40,6 +40,7 @@ setup(
         'Programming Language :: Python :: 3.5'
     ],
     install_requires=[
+        'django-mptt==0.7.4',
         'django_mptt_admin==0.3.1'
     ],
 )
